@@ -2,9 +2,10 @@
 
 from flask_templates import app
 from flask.ext.socketio import SocketIO, emit
-from flask import request
+from flask import request, jsonify
 import requests
 import copy
+import json
 
 socketio = SocketIO(app)
 
@@ -40,7 +41,34 @@ def login_meican():
                 "beginDate": "2015-9-30",
                 "endDate": "2015-10-7"
             })
-            print r2.text
+            try:
+                j = json.loads(r2.text)
+                all_food = {}
+                for day in j[u"dateList"]:
+                    day_desc = day[u'date']
+                    l = day[u'calendarItemList']
+                    day_food_list = {}
+                    for sub_type in l:
+                        d = sub_type[u'corpOrderUser']
+                        title = sub_type[u"title"]
+                        food_list = []
+                        c = sub_type[u'corpOrderUser']
+                        if c and c.get(u'restaurantItemList', None):
+                            for rest in c[u'restaurantItemList']:
+                                for dish in rest[u'dishItemList']:
+                                    count = dish[u"count"]
+                                    name = dish[u"dish"][u'name']
+                                    food_list.append((name, count))
+                        if len(food_list) > 0:
+                            day_food_list[title] = food_list
+                    if len(day_food_list) > 0:
+                        all_food[day_desc] = day_food_list
+                return jsonify(all_food), 200
+
+            except Exception as e:
+                print e
+                return str(e), 500
+
         return ""
     else:
         return ""

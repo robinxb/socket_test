@@ -40,6 +40,15 @@ angular.module('meican_helper', [])
             data: data})
         .success(function(data) {
             console.log(data)
+            for (day in data){
+                for (sub_type in data[day]){
+                    $("#food_list_already").append("<p>"+sub_type+'</p>')
+                    for (item in data[day][sub_type]){
+                        var it = data[day][sub_type][item]
+                        $("#food_list_already").append("<p>"+it+'</p>')
+                    }
+                }
+            }
         });
     };
   });
