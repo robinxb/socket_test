@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="cn" ng-app="meican_helper">
 <head>
   <meta charset="UTF-8">
   {% if title %}
@@ -12,8 +12,9 @@
   <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.4.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
   <script type="text/javascript" src="http://lib.sinaapp.com/js/jquery/1.9.1/jquery-1.9.1.min.js"></script>
-  <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/0.9.16/socket.io.min.js"></script>
+  <script src="{{ url_for('static', filename='socket.io.min.js') }}"></script>
   <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <script src="{{ url_for('static', filename='angular.min.js') }}"></script>
   <script src="{{ url_for('static', filename='main.js') }}"></script>
   <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
 </head>

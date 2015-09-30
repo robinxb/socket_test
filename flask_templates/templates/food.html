@@ -1,1 +1,8 @@
-food
+<div ng-controller="MeicanLoginController as meican_login">
+    <p>请输入美餐网账号密码(服务器不会保存或利用此信息)</p>
+    <form ng-submit="meican_login.login()">
+        <input ng-model="meican_login.login_acc">
+        <input type="password" ng-model="meican_login.login_psw">
+        <input type="submit" class="btn-primary">
+    </form>
+</div>
