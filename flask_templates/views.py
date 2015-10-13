@@ -2,7 +2,7 @@
 
 from flask_templates import app
 from flask import render_template
-from flask import g
+from flask import g, request
 
 @app.before_request
 def before_request():
@@ -13,5 +13,5 @@ def before_request():
 @app.route('/')
 def index():
     """Main page of the website."""
+    username = request.cookies.get('username')
     return render_template('index.html')
-    pass

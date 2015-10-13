@@ -23,14 +23,12 @@ function connect(){
 };
 
 
-angular.module('meican_helper', [])
+angular.module('meican_helper', ['ngCookies'])
   .controller('MeicanLoginController', function($scope, $http) {
     var helper = this;
-    var login_data = null
-    helper.is_login = function(){
-        return login_data != null
-    }
+    $scope.ShowMode = "login";
     helper.login = function() {
+      $scope.ShowMode= "fetching";
         console.log(helper.login_psw)
         var data = JSON.stringify({acc: helper.login_acc, pwd: helper.login_psw})
         $http({
@@ -40,6 +38,9 @@ angular.module('meican_helper', [])
             data: data})
         .success(function(data) {
             console.log(data)
+            $scope.ShowMode = "fetched"
+            $scope.foodList = data
+            /*
             for (day in data){
                 for (sub_type in data[day]){
                     $("#food_list_already").append("<p>"+sub_type+'</p>')
@@ -49,6 +50,7 @@ angular.module('meican_helper', [])
                     }
                 }
             }
+           */
         });
     };
   });

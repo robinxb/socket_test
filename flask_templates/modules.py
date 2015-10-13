@@ -2,7 +2,7 @@
 
 from flask_templates import app
 from flask.ext.socketio import SocketIO, emit
-from flask import request, jsonify
+from flask import request, jsonify, make_response
 import requests
 import copy
 import json
@@ -63,7 +63,10 @@ def login_meican():
                             day_food_list[title] = food_list
                     if len(day_food_list) > 0:
                         all_food[day_desc] = day_food_list
-                return jsonify(all_food), 200
+                ret = make_response(jsonify(all_food), 200)
+                ret.set_cookie("meican_username", data["acc"])
+                ret.set_cookie("meican_password", data["pwd"])
+                return ret
 
             except Exception as e:
                 print e
